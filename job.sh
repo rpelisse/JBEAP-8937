@@ -44,6 +44,14 @@ cd "jboss-eap-${EAP_VERSION:0:3}-src"
 unzip -q ${JBOSS_EAP_TESTSUITE_ARCHIVE}
 export MAVEN_REPO_LOCAL="${WORKSPACE}/eap-local-maven-repository"
 
+# JBEAP-8937 - try to fix issue with substitution on Solaris
+readonly FILE_TO_PATCH='./mvnw'
+cp "../${FILE_TO_PATCH}" "${FILE_TO_PATCH}"
+chmod +x "${FILE_TO_PATCH}"
+
+export MAVEN_PROJECTBASEDIR=$(pwd)
+# End of fix
+
 # build EAP and testsuite using OOB build scripts
 bash -x  ./build.sh -B -llr -Dmaven.repo.local=${MAVEN_REPO_LOCAL} -fae -DskipTests
 bash -x  ./integration-tests.sh -B -llr -Dmaven.repo.local=${MAVEN_REPO_LOCAL} -fae -DskipTests
