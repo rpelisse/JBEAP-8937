@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # check evironment
 if [ "${MYTESTIP_1}x" == "x" ] || [ "${MYTESTIP_2}x" == "x" ] || [ "${MCAST_ADDR}x" == "x" ] ; then
