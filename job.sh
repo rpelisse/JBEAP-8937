@@ -14,6 +14,7 @@ WORKSPACE=$(pwd)
 unzip -q "${HUDSON_STATIC_ENV}/eap/${EAP_VERSION}/jboss-eap-${EAP_VERSION}-testsuite-local-repository.zip"
 export MAVEN_REPO_LOCAL="${WORKSPACE}/eap-local-maven-repository"
 
+export MAVEN_PROJECTBASEDIR
 # build EAP and testsuite using OOB build scripts
 bash -x  ./build.sh -B -llr -Dmaven.repo.local=${MAVEN_REPO_LOCAL} -fae -DskipTests
 bash -x  ./integration-tests.sh -B -llr -Dmaven.repo.local=${MAVEN_REPO_LOCAL} -fae -DskipTests
