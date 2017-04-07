@@ -208,11 +208,7 @@ concat_lines() {
 
 # Workaround for JBEAP-8937 (do not change, it may break on Solaris)
 if [ -z "${MAVEN_PROJECTBASEDIR}" ]; then
-  basedir_tmp_file=`mktemp`
-  find_maven_basedir > "${basedir_tmp_file}"
-  MAVEN_PROJECTBASEDIR=`cat ${basedir_tmp_file}`
-  export MAVEN_PROJECTBASEDIR
-  rm "${basedir_tmp_file}"
+  export MAVEN_PROJECTBASEDIR=`find_maven_basedir`
 fi
 # End of fix
 MAVEN_OPTS="`(concat_lines "$MAVEN_PROJECTBASEDIR/.mvn/jvm.config")` $MAVEN_OPTS"
