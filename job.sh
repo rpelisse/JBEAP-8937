@@ -53,5 +53,7 @@ export MAVEN_PROJECTBASEDIR=$(pwd)
 # End of fix
 
 # build EAP and testsuite using OOB build scripts
+echo '************************ Phase 1 *******************************************'
 bash -x  ./build.sh -B -llr -Dmaven.repo.local=${MAVEN_REPO_LOCAL} -fae -DskipTests
+echo '************************ Phase 2 *******************************************'
 bash -x  ./integration-tests.sh -B -llr -Dmaven.repo.local=${MAVEN_REPO_LOCAL} -fae -DskipTests
