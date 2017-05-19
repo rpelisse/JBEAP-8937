@@ -9,6 +9,14 @@ usage() {
   exit ${1}
 }
 
+patch_file() {
+  local file_to_patch=${1}
+  echo -n "Patching ${file_to_patch}..."
+  cp "../${file_to_patch}" "${file_to_patch}"
+  chmod +x "${file_to_patch}"
+  echo 'Done.'
+}
+
 if [ -n "${HUDSON_STATIC_ENV}" ]; then
   readonly JBOSS_EAP_ARCHIVE_LOCATION="${HUDSON_STATIC_ENV}/eap/${EAP_VERSION}/jboss-eap-${EAP_VERSION}-src.zip"
   readonly JBOSS_EAP_TESTSUITE_ARCHIVE="${HUDSON_STATIC_ENV}/eap/${EAP_VERSION}/jboss-eap-${EAP_VERSION}-testsuite-local-repository.zip"
@@ -45,11 +53,8 @@ unzip -q ${JBOSS_EAP_TESTSUITE_ARCHIVE}
 export MAVEN_REPO_LOCAL="${WORKSPACE}/eap-local-maven-repository"
 
 # JBEAP-8937 - try to fix issue with substitution on Solaris
-readonly FILE_TO_PATCH='./mvnw'
-cp "../${FILE_TO_PATCH}" "${FILE_TO_PATCH}"
-chmod +x "${FILE_TO_PATCH}"
-
-export MAVEN_PROJECTBASEDIR=$(pwd)
+patch_file './build.sh'
+patch_file './integration-tests.sh'
 # End of fix
 
 # build EAP and testsuite using OOB build scripts
